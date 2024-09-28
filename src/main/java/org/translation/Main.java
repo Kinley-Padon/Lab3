@@ -101,14 +101,20 @@ public class Main {
 
     // Note: CheckStyle is configured so that we don't need javadoc for private methods
     private static String promptForLanguage(Translator translator, String country) {
-
         // TODO Task: replace the line below so that we sort the languages alphabetically and print them out; one per
         //  line
         // TODO Task: convert the language codes to the actual language names before sorting
+
+        List<String> languageCodes = translator.getCountryLanguages(country);
+
         LanguageCodeConverter languageConverter = new LanguageCodeConverter();
         List<String> languageNames = new ArrayList<>();
-        for (String code : languageNames) {
-            languageNames.add(languageConverter.fromLanguageCode(code));
+        for (String code : languageCodes) {
+            String languageName = languageConverter.fromLanguageCode(code);
+            if (!"Unknown language code".equals(languageName)) {
+                languageNames.add(languageName);
+            }
+            // languageNames.add(languageConverter.fromLanguageCode(code));
         }
 
         Collections.sort(languageNames);
